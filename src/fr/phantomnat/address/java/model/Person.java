@@ -26,7 +26,7 @@ public class Person {
     private final ObjectProperty<LocalDate> birthday;
 
     /**
-     * Default constructor
+     * Default Constructor
      */
     public Person() {
         this(null, null);
