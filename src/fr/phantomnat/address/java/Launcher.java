@@ -5,8 +5,12 @@
  */
 package fr.phantomnat.address.java;
 
+import fr.phantomnat.address.java.controller.PersonOverviewController;
+import fr.phantomnat.address.java.model.Person;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +25,23 @@ public class Launcher extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private ObservableList<Person> personData = FXCollections.observableArrayList();
+
+    /**
+     * Default constructor
+     */
+    public Launcher() {
+        // Add some sample data
+        personData.add(new Person("Hans", "Muster"));
+        personData.add(new Person("Ruth", "Mueller"));
+        personData.add(new Person("Heinz", "Kurz"));
+        personData.add(new Person("Cornelia", "Meier"));
+        personData.add(new Person("Werner", "Meyer"));
+        personData.add(new Person("Lydia", "Kunz"));
+        personData.add(new Person("Anna", "Best"));
+        personData.add(new Person("Stefan", "Meier"));
+        personData.add(new Person("Martin", "Mueller"));
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -57,14 +78,19 @@ public class Launcher extends Application {
      */
     public void showPersonOverview() {
         try {
-            // Load person overview.
+            // Load Person Overview from FXML file
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Launcher.class.getResource("view/PersonOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
+            // Give the Controller access to the Application (Launcher class).
+            PersonOverviewController controller = loader.getController();
+            controller.setApplication(this);
+
+            // Set Person Overview into the center of Root Layout
             rootLayout.setCenter(personOverview);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -75,6 +101,14 @@ public class Launcher extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Returns the data as an observable list of Persons
+     * @return
+     */
+    public ObservableList<Person> getPersonData() {
+        return personData;
     }
 
     /**
