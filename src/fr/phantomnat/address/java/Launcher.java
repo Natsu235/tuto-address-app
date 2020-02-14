@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -48,11 +49,11 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.getIcons().add(new Image(Launcher.class.getResource("/fr/phantomnat/address/resources/img/address-book-32.png").toString()));
 
         initRootLayout();
         showPersonOverview();
-
-        primaryStage.setTitle("AddressApp");
     }
 
     /**
